@@ -1,0 +1,66 @@
+﻿@model AdministracionEmpleados.Models.EmpleadoModel
+
+@{
+    ViewData["Title"] = "ActualizarEmpleados";
+}
+
+
+<h4>Actualizacion de Datos</h4>
+<hr />
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="ActualizarEmpleados">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="IdEmpleado" class="control-label"></label>
+                    <input asp-for="IdEmpleado" class="form-control" />
+                    <span asp-validation-for="IdEmpleado" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NombreEmpleado" class="control-label"></label>
+                    <input asp-for="NombreEmpleado" class="form-control" />
+                    <span asp-validation-for="NombreEmpleado" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RolEmpleado" class="control-label"></label>
+                    <input asp-for="RolEmpleado" class="form-control" />
+                    <span asp-validation-for="RolEmpleado" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TipoEmpleado" class="control-label"></label>
+                    <input asp-for="TipoEmpleado" class="form-control" />
+                    <span asp-validation-for="TipoEmpleado" class="text-danger"></span>
+                </div>
+
+            
+                <div class="form-group">
+                    <label asp-for="SueldoBaseHora" class="control-label"></label>
+                    <input asp-for="SueldoBaseHora" class="form-control" />
+                    <span asp-validation-for="SueldoBaseHora" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PagoHoraEntrega" class="control-label"></label>
+                    <input asp-for="PagoHoraEntrega" class="form-control" />
+                    <span asp-validation-for="PagoHoraEntrega" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BonoHora" class="control-label"></label>
+                    <input asp-for="BonoHora" class="form-control" />
+                    <span asp-validation-for="BonoHora" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+    }
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

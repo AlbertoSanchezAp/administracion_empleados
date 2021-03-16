@@ -1,0 +1,65 @@
+﻿@model AdministracionEmpleados.Models.EmpleadoModel
+
+
+@{
+    ViewData["Title"] = "AltaEmpleado";
+    
+}
+<h1>Registro de Empleados</h1>
+<hr />
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AltaEmpleado">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">Nombre Completo</label>
+                    <input asp-for="NombreEmpleado" class="form-control" />
+                    <span asp-validation-for="NombreEmpleado" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Edad</label>
+                    <input asp-for="Edad" class="form-control" />
+                    <span asp-validation-for="Edad" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Sexo</label>
+                    @Html.DropDownListFor(Model=>Model.Sexo, Model.LstGenero, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(Model=>Model.Sexo,"", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Rol</label>
+                    @Html.DropDownListFor(Model => Model.RolEmpleado, Model.LstRoles, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(Model => Model.RolEmpleado, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Tipo</label>
+                    @Html.DropDownListFor(Model => Model.TipoEmpleado, Model.LstTipoEmpleado, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(Model => Model.TipoEmpleado, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Sueldo Base por Hora</label>
+                    <input asp-for="SueldoBaseHora" class="form-control" />
+                    <span asp-validation-for="SueldoBaseHora" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Pago por Entrega</label>
+                    <input asp-for="PagoHoraEntrega" class="form-control" />
+                    <span asp-validation-for="PagoHoraEntrega" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Regresar a Listado Empleado</a>
+    </div>
+}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

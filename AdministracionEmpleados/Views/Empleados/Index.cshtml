@@ -1,0 +1,62 @@
+﻿@model IEnumerable<AdministracionEmpleados.Models.EmpleadoModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="AltaEmpleado">Registrar Nuevo Empleado</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEmpleado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreEmpleado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Edad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sexo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RolEmpleado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoEmpleado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEmpleado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreEmpleado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sexo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RolEmpleado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoEmpleado)
+            </td>
+            <td>
+                @Html.ActionLink("Actualizar Datos", "ActualizarEmpleados", new { id = item.IdEmpleado}) |
+                @Html.ActionLink("Baja Empleado", "BajaEmpleado", new { id=item.IdEmpleado, nom= item.NombreEmpleado, ed= item.Edad, sex=item.Sexo, rol=item.RolEmpleado, tipo=item.TipoEmpleado }) 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
