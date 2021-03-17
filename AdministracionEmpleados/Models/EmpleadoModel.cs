@@ -18,9 +18,10 @@ namespace AdministracionEmpleados.Models
 
         public double SueldoBaseHora { get; set; }
 
-        public double PagoHoraEntrega { get; set; }
+        public double PagoXEntrega { get; set; }
 
         public double BonoHora { get; set; }
+
         public int ValeDespensa { get; set; }
         public double SueldoBase { get; set; }
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AdministracionEmpleados.Models.EmpleadoModel>
+﻿@model IEnumerable<AdministracionEmpleados.Models.Empleados>
 
 @{
     ViewData["Title"] = "Index";
@@ -11,10 +11,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdEmpleado)
+                @Html.DisplayNameFor(model => model.Empleado)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NombreEmpleado)
+                @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Edad)
@@ -23,10 +23,10 @@
                 @Html.DisplayNameFor(model => model.Sexo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RolEmpleado)
+                @Html.DisplayNameFor(model => model.Rol)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoEmpleado)
+                @Html.DisplayNameFor(model => model.Tipo)
             </th>
             <th></th>
         </tr>
@@ -35,10 +35,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IdEmpleado)
+                @Html.DisplayFor(modelItem => item.Empleado)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NombreEmpleado)
+                @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Edad)
@@ -47,14 +47,14 @@
                 @Html.DisplayFor(modelItem => item.Sexo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RolEmpleado)
+                @Html.DisplayFor(modelItem => item.Rol)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TipoEmpleado)
+                @Html.DisplayFor(modelItem => item.Tipo)
             </td>
             <td>
-                @Html.ActionLink("Actualizar Datos", "ActualizarEmpleados", new { id = item.IdEmpleado}) |
-                @Html.ActionLink("Baja Empleado", "BajaEmpleado", new { id=item.IdEmpleado, nom= item.NombreEmpleado, ed= item.Edad, sex=item.Sexo, rol=item.RolEmpleado, tipo=item.TipoEmpleado }) 
+                @Html.ActionLink("Actualizar Datos", "ActualizarEmpleados", new { id = item.Empleado, nom = item.Nombre }) |
+                @Html.ActionLink("Baja Empleado", "BajaEmpleado", new { id=item.Empleado, nom= item.Nombre, ed= item.Edad, sex=item.Sexo, rol=item.Rol, tipo=item.Tipo }) 
             </td>
         </tr>
 }

@@ -1,0 +1,41 @@
+﻿@model AdministracionEmpleados.Models.ConsultaMovimientosModel
+
+@{
+    ViewData["Title"] = "EliminarMovimiento";
+}
+
+<h1>EliminarMovimiento</h1>
+
+<h3>Desea eliminar el siguiente movimiento?</h3>
+<div>
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Movimiento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Movimiento)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Empleado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Empleado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        <form asp-action="EliminarMovimiento">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="Index">Back to List</a>
+        </form>
+     }
+    </div>
