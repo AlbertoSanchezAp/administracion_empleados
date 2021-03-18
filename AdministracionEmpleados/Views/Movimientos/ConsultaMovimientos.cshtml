@@ -5,7 +5,9 @@
 }
 
 <h1>Movimientos</h1>
-
+<p>
+    <a asp-action="Index">Regresar</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -58,9 +60,9 @@
                 @Html.DisplayFor(modelItem => item.Fecha_Captura)
             </td>
             <td>
-                @Html.ActionLink("Reporte Nomina", "ConsultaReporteNomina", new {  id=item.Empleado }) |
-                @Html.ActionLink("Eliminar", "EliminarMovimiento", new { idmovi=item.Movimiento, id=item.Empleado, nombre=item.Nombre
-           })
+                @Html.ActionLink("Reporte Nomina", "ConsultaReporteNomina", new { id = item.Empleado }) |
+                @Html.ActionLink("Eliminar", "EliminarMovimiento", new { idmovi = item.Movimiento, id = item.Empleado, nombre = item.Nombre })|
+                
             </td>
         </tr>
 }

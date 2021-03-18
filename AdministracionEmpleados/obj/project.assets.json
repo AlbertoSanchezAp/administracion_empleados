@@ -6200,11 +6200,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\JASN\\Desktop\\SENIOR\\ClonMVC\\administracion_empleados\\AdministracionEmpleados\\AdministracionEmpleados.csproj",
+      "projectUniqueName": "C:\\Users\\JASN\\Desktop\\SENIOR\\carpeta de respaldo\\AdministracionEmpleados\\AdministracionEmpleados.csproj",
       "projectName": "AdministracionEmpleados",
-      "projectPath": "C:\\Users\\JASN\\Desktop\\SENIOR\\ClonMVC\\administracion_empleados\\AdministracionEmpleados\\AdministracionEmpleados.csproj",
+      "projectPath": "C:\\Users\\JASN\\Desktop\\SENIOR\\carpeta de respaldo\\AdministracionEmpleados\\AdministracionEmpleados.csproj",
       "packagesPath": "C:\\Users\\JASN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\JASN\\Desktop\\SENIOR\\ClonMVC\\administracion_empleados\\AdministracionEmpleados\\obj\\",
+      "outputPath": "C:\\Users\\JASN\\Desktop\\SENIOR\\carpeta de respaldo\\AdministracionEmpleados\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\JASN\\AppData\\Roaming\\NuGet\\NuGet.Config",

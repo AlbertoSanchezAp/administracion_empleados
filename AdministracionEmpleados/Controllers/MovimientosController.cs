@@ -15,17 +15,28 @@ namespace AdministracionEmpleados.Controllers
     public class MovimientosController : Controller
     {
         // GET: MovimientosController1
-        String URL_alta_movimiento = "http://localhost:7801/empleados_api/v1/alta/movimientos";
-        String URL_elimina_movimiento = "http://localhost:7801/empleados_api/v1/elimina/movimiento";
-        String URL_consulta_movimiento= "http://localhost:7801/empleados_api/v1/consulta/movimientos";
+        String URL_alta_movimiento = "http://localhost:7800/empleados_api/v1/alta/movimientos";
+        String URL_elimina_movimiento = "http://localhost:7800/empleados_api/v1/elimina/movimiento";
+        String URL_consulta_empleados = "http://localhost:7800/empleados_api/v1/consulta/empleado";
+        String URL_consulta_movimiento= "http://localhost:7800/empleados_api/v1/consulta/movimientos";
+        String URL_consulta_reporte= "http://localhost:7800/empleados_api/v1/consulta_nomina";
+        
         public ActionResult Index()
         {
-            List<MovimientosModel> mov = new List<MovimientosModel>();
-            mov.Add(new MovimientosModel(10001, "nombre completo", 12, "Hombre", "Chofer", "Externo"));
-            mov.Add(new MovimientosModel(10002, "nombre cppm", 12, "Mujer", "Chofer", "Externo"));
 
-            return View(mov);
-            
+            List<Empleados> emp = new List<Empleados>();
+            emp = consultaEmpleados();
+
+            if (!emp.Equals(null))
+            {
+                return View(emp);
+            }
+            else
+            {
+                return View();
+            }
+
+
         }
         [HttpPost]
 
@@ -41,7 +52,7 @@ namespace AdministracionEmpleados.Controllers
         }
 
         // GET: MovimientosController1/Create
-        public ActionResult RegistraMovimiento(int id, string nombre, MovimientosModel mov)
+        public ActionResult RegistraMovimiento(int id,  string nombre, MovimientosModel mov)
         {
             mov.IdEmpleado = id;
             mov.NombreEmpleado=nombre;
@@ -147,7 +158,7 @@ namespace AdministracionEmpleados.Controllers
                 {
 
 
-                    Console.WriteLine(response);
+                    ///Console.WriteLine(response);
                     using (Stream strReader = response.GetResponseStream())
                     {
                         
@@ -155,6 +166,10 @@ namespace AdministracionEmpleados.Controllers
                         {
                             string responseBody = objReader.ReadToEnd();
                             respJson = JsonSerializer.Deserialize<RespuestaMovimientos>(responseBody);
+                            if (respJson.Movimientos.Equals(null))
+                            {
+                                Console.WriteLine("No existen Registros de Empleados");
+                            }
                             Console.WriteLine(responseBody);
                             
                         }
@@ -171,27 +186,63 @@ namespace AdministracionEmpleados.Controllers
 
             return respJson.Movimientos;
         }
+
+       
+
         public ActionResult ConsultaReporteNomina(int id)
         {
-            NominaModel nom = new NominaModel();
+            ConsultaEmpleados nomina = new ConsultaEmpleados();
+
+            NominaModel Resp = new NominaModel();
             
-            nom.IdEmpleado = 10001;
-            nom.NombreEmpleado = "JOSE ALBERTO SANCHEZ";
-            nom.Ingresos = 15642.00;
-            nom.Sueldo = 520.00;
-            nom.Despensa = 520.00;
-            nom.Deducciones = 4000.00;
-            nom.ISR = 15642.00;
-            nom.Total_Pagar = 10460.00;
+            HttpWebRequest request = (System.Net.HttpWebRequest)WebRequest.Create(URL_consulta_reporte);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+            nomina.IdEmpleado = id;
+           
+
+            String JsonRequest = JsonSerializer.Serialize<ConsultaEmpleados>(nomina);
+            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(JsonRequest);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (Stream strReader = response.GetResponseStream())
+                    {
+                        if (strReader == null) return View();
+                        using (StreamReader objReader = new StreamReader(strReader))
+                        {
+                            string responseBody = objReader.ReadToEnd();
+                            Resp = JsonSerializer.Deserialize<NominaModel>(responseBody);
+                            if (Resp.Equals(null))
+                            {
+
+                                Console.WriteLine("Ha ocurrido un Error en la Transaccion del Reporte");
+                                return RedirectToAction("Index");
+                            }
+                            Console.WriteLine(responseBody);
+                            //return RedirectToAction("Index");
+                        }
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                // Handle erro
+                // r
+            }
 
 
-            return View(nom);
 
-        }
-        [HttpPost]
-        public ActionResult ConsultaReporteNomina(Movimientos consmov)
-        {
-            return View();
+            return View(Resp);
         }
 
 
@@ -241,6 +292,11 @@ namespace AdministracionEmpleados.Controllers
                         {
                             string responseBody = objReader.ReadToEnd();
                             respJson = JsonSerializer.Deserialize<Respuesta>(responseBody);
+                            if (respJson.Equals(null)) {
+
+                                Console.WriteLine("Ha ocurrido un Error en la Transaccion del Movimiento");
+                                return RedirectToAction("Index");
+                            }
                             Console.WriteLine(responseBody);
                             return RedirectToAction("Index");
                         }
@@ -256,6 +312,72 @@ namespace AdministracionEmpleados.Controllers
 
 
             return View();
+        }
+
+        
+       public NominaModel obtenerReporteNomina(int id)
+        {
+            
+            NominaModel nomina = new NominaModel();
+
+            
+            return nomina;
+
+        }
+
+
+
+        public List<Empleados> consultaEmpleados()
+        {
+            ConsultaEmpleados mov = new ConsultaEmpleados();
+            RespuestaEmpleados respJson = new RespuestaEmpleados();
+
+            HttpWebRequest request = (System.Net.HttpWebRequest)WebRequest.Create(URL_consulta_empleados);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+
+            String JsonRequest = JsonSerializer.Serialize<ConsultaEmpleados>(mov);
+            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(JsonRequest);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+
+
+                    Console.WriteLine(response);
+                    using (Stream strReader = response.GetResponseStream())
+                    {
+
+                        using (StreamReader objReader = new StreamReader(strReader))
+                        {
+                            string responseBody = objReader.ReadToEnd();
+                            respJson = JsonSerializer.Deserialize<RespuestaEmpleados>(responseBody);
+                            Console.WriteLine(responseBody);
+                            if (respJson.Empleados.Equals(null))
+                            {
+                                Console.WriteLine("No existen Registros de Empleados");
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                // Handle erro
+                // r
+            }
+
+            //  mov2 = respJson.Movimientos;
+
+            return respJson.Empleados;
         }
 
     }

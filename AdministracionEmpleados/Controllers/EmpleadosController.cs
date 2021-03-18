@@ -13,17 +13,24 @@ namespace AdministracionEmpleados.Controllers
 
     public class EmpleadosController : Controller
     {
-        String URL_alta = "http://localhost:7801/empleados_api/v1/alta_empleado";
-        String URL_actualiza = "http://localhost:7801/empleados_api/v1/actualiza/empleado";
-        String URL_baja = "http://localhost:7801/empleados_api/v1/baja/empleado";
-        String URL_consulta_Empleados = "http://localhost:7801/empleados_api/v1/consulta/empleado";
+        String URL_alta = "http://localhost:7800/empleados_api/v1/alta_empleado";
+        String URL_actualiza = "http://localhost:7800/empleados_api/v1/actualiza/empleado";
+        String URL_baja = "http://localhost:7800/empleados_api/v1/baja/empleado";
+        String URL_consulta_Empleados = "http://localhost:7800/empleados_api/v1/consulta/empleado";
         public ActionResult Index()
         {
             
             List<Empleados> emp = new List<Empleados>();
             emp = consultaEmpleados();
-
-            return View(emp);
+            if (!emp.Equals(null))
+            {
+                return View(emp);
+            }
+            else
+            {
+                return View();
+            }
+           
         }
 
         [HttpPost]
@@ -66,8 +73,15 @@ namespace AdministracionEmpleados.Controllers
                 else {
                     emp.ValeDespensa = 0;
                 }
-            // calcular sueldo mensual
-                
+           
+                if (emp.Sexo.Equals("1"))
+                {
+                    emp.Sexo = "Hombre";
+                }
+                else {
+                    emp.Sexo = "Mujer";
+                }
+
                 emp.SueldoBaseHora = 30.00;
                 emp.PagoXEntrega = 5.00;
                 double sueldoBaseMensual= (emp.SueldoBaseHora * jornadaLaboralHoras) * 30;
@@ -140,15 +154,20 @@ namespace AdministracionEmpleados.Controllers
             int jornadaLaboralHoras = 8;
             String sucontratadoDespensa = emp.TipoEmpleado;
             String rol = emp.RolEmpleado;
+            emp.ValeDespensa = 4;
             
             if (rol.Equals("3"))
             {
                 emp.BonoHora = 0.00;
             }
-
+            if (sucontratadoDespensa.Equals("0"))
+            {
+                emp.ValeDespensa = 0;
+            }
+            
             // calcular sueldo mensual
 
-            
+
             double sueldoBaseMensual = (emp.SueldoBaseHora * jornadaLaboralHoras) * 30;
             emp.SueldoBase = sueldoBaseMensual;
             emp.Sexo = "";
@@ -283,7 +302,7 @@ namespace AdministracionEmpleados.Controllers
                 {
 
 
-                    Console.WriteLine(response);
+                    
                     using (Stream strReader = response.GetResponseStream())
                     {
 
@@ -292,7 +311,9 @@ namespace AdministracionEmpleados.Controllers
                             string responseBody = objReader.ReadToEnd();
                             respJson = JsonSerializer.Deserialize<RespuestaEmpleados>(responseBody);
                             Console.WriteLine(responseBody);
-
+                            if (respJson.Empleados.Equals(null)) {
+                                Console.WriteLine("No existen Registros de Empleados");
+                            }
                         }
                     }
                 }

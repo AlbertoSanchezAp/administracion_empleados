@@ -1,10 +1,8 @@
 ﻿@model AdministracionEmpleados.Models.ConsultaMovimientosModel
 
 @{
-    ViewData["Title"] = "EliminarMovimiento";
+    ViewData["Title"] = "Eliminar Movimiento";
 }
-
-<h1>EliminarMovimiento</h1>
 
 <h3>Desea eliminar el siguiente movimiento?</h3>
 <div>
@@ -34,8 +32,8 @@
     @using (Html.BeginForm())
     {
         <form asp-action="EliminarMovimiento">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            <a asp-action="Index">Back to List</a>
+            <input type="submit" value="Eliminiar" class="btn btn-danger" /> |
+            <a asp-action="Index">Regresar</a>
         </form>
      }
     </div>

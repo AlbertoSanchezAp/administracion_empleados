@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "69qAwyjqaFbeTBuYjNRb/5DIAMMETfH7j/0QgwZQbMGRNtzNhj7X3hs456mbbjg11oaGyO8PjNg43yCFPFcZnw==",
+  "dgSpecHash": "BfSeO/lY2WfiVsqyOwt644yk2LptkglD2cl6N1XF0B8SfLuzOp8PGoo8kYsEibgUKVoNUvvkDlfxhsFQnGYR8Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\JASN\\Desktop\\SENIOR\\ClonMVC\\administracion_empleados\\AdministracionEmpleados\\AdministracionEmpleados.csproj",
+  "projectFilePath": "C:\\Users\\JASN\\Desktop\\SENIOR\\carpeta de respaldo\\AdministracionEmpleados\\AdministracionEmpleados.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\JASN\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Users\\JASN\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
